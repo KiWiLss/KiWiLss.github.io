@@ -2,24 +2,20 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>关于 | Gridea</title>
-<link rel="shortcut icon" href="https://KiWiLss.github.io/favicon.ico?v=1625383845151">
+<title>Activity Result Api DSl | Gridea</title>
+<link rel="shortcut icon" href="https://KiWiLss.github.io/favicon.ico?v=1625384285142">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://KiWiLss.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="关于 | Gridea - Atom Feed" href="https://KiWiLss.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="Activity Result Api DSl | Gridea - Atom Feed" href="https://KiWiLss.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="
-欢迎来到我的小站呀，很高兴遇见你！🤝
-
-🏠 关于本站
-👨‍💻 博主是谁
-⛹ 兴趣爱好
-📬 联系我呀
-..." />
-    <meta name="keywords" content="" />
+    <meta name="description" content="前言
+在安卓开发中，跳转和申请权限设计的比较麻烦，网上有很多优秀的库解决这个问题，谷歌对这个问题做了处理，废弃了以前的方法。具体的使用方法可以参考末尾的参考博客。下面是对这些方法做的基本封装，方便使用。
+IntentKtx
+这个类是对普通跳..." />
+    <meta name="keywords" content="工具" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -28,7 +24,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://KiWiLss.github.io">
-  <img class="avatar" src="https://KiWiLss.github.io/images/avatar.png?v=1625383845151" alt="">
+  <img class="avatar" src="https://KiWiLss.github.io/images/avatar.png?v=1625384285142" alt="">
   </a>
   <h1 class="site-title">
     Gridea
@@ -39,26 +35,8 @@
   <div class="menu-container">
     
       
-        <a href="/" class="menu">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          归档
-        </a>
-      
-    
-      
         <a href="/tags" class="menu">
           标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
         </a>
       
     
@@ -81,37 +59,184 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              关于
+              Activity Result Api DSl
             </h2>
             <div class="post-info">
               <span>
-                2019-01-25
+                2021-07-04
               </span>
               <span>
-                1 min read
+                4 min read
               </span>
+              
+                <a href="https://KiWiLss.github.io/tag/h40hUlECA/" class="post-tag">
+                  # 工具
+                </a>
               
             </div>
             
+              <img class="post-feature-image" src="https://KiWiLss.github.io/post-images/about.jpg" alt="">
+            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<h2 id="联系我呀">📬 联系我呀</h2>
+                <h2 id="前言">前言</h2>
+<p>在安卓开发中，跳转和申请权限设计的比较麻烦，网上有很多优秀的库解决这个问题，谷歌对这个问题做了处理，废弃了以前的方法。具体的使用方法可以参考末尾的参考博客。下面是对这些方法做的基本封装，方便使用。</p>
+<h2 id="intentktx">IntentKtx</h2>
+<p>这个类是对普通跳转的封装，可以用也可以不用，主要是方便实现简单的跳转。都是扩展函数，直接在 Activity/Fragment 中使用即可。</p>
+<pre><code>createIntent            :生成Intent并添加参数(可选）
+createIntentStart       :生成跳转的Intent并添加参数,也可以不添加参数
+addPair                 :Intent 添加参数
+startActivityK          :跳转
+
+browse                  :打开浏览器
+share                   :生调用分享，只能分享文本
+email                   :发送邮件
+makeCallPermission  :拨打电话，需要权限
+makeCall                :拨打电话
+sendSMS                 :发送短信
+</code></pre>
+<h2 id="封装使用界面跳转">封装使用界面跳转</h2>
+<p>最新版可以参考官网 <a href="https://developer.android.google.cn/jetpack/androidx/releases/activity#kts">Activity</a>,<a href="https://developer.android.google.cn/jetpack/androidx/releases/fragment">Framgnet</a>。</p>
+<h3 id="1导入依赖">1.导入依赖</h3>
+<p>我试了一下只导入最后一个也可以，只是 activity对应的版本不是最新的，如果想两个都是最新的就像下面这样，导入两个就行了。下面是原生的依赖导入：</p>
+<pre><code>   //activity
+    def activity_version = &quot;1.2.3&quot;
+    // Java language implementation
+//    implementation &quot;androidx.activity:activity:$activity_version&quot;
+    // Kotlin
+    api &quot;androidx.activity:activity-ktx:$activity_version&quot;
+    //fragment
+    def fragment_version = &quot;1.3.4&quot;
+    // Java language implementation
+//    implementation &quot;androidx.fragment:fragment:$fragment_version&quot;
+    // Kotlin
+    api &quot;androidx.fragment:fragment-ktx:$fragment_version&quot;
+</code></pre>
+<p>封装后的依赖导入，最新版看最后的项目地址：</p>
+<pre><code>maven { url 'https://www.jitpack.io' }
+ 
+implementation 'com.gitee.quetzalcoatl:ActivityResultApi:0.0.3'
+</code></pre>
+<h3 id="2跳转使用">2.跳转使用</h3>
+<ol>
+<li>第一步生成 ActivityResultLauncher,在这里面可以监听回调。</li>
+</ol>
+<pre><code>  private val startTest = startActivityForResultK {
+        //这里是回调,相当于 onActivityResult
+        if (it.resultCode == RESULT_OK){
+            //获取回传值,这里就是以前的 intent
+            it.data?.run {
+                Toast.makeText(this@MainActivity,
+                    &quot;${getStringExtra(&quot;result&quot;)}&quot;, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+</code></pre>
+<ol start="2">
+<li>第二步调用跳转</li>
+</ol>
+<pre><code> fun testStart(view: View) {
+        //调用跳转
+        startTest.launch(createIntentStart&lt;WelcomeActivity&gt;(&quot;text&quot; to &quot;这里可以传多个参数&quot;))
+    }
+</code></pre>
+<ol start="3">
+<li>获取参数，回传信息<br>
+这里和以前用法一样，没有变化，示例如下：</li>
+</ol>
+<pre><code>  tvText.text = intent.getStringExtra(&quot;text&quot;)
+    //回传任意值
+        setResult(RESULT_OK,createIntent(&quot;result&quot; to &quot;hello&quot;))
+        finish()
+</code></pre>
+<h2 id="申请权限">申请权限</h2>
+<p>申请权限和上面使用步骤类似，这里做了两种封装，一个单纯的扩展函数，可以直接调用。另一个对扩展做了封装，可以更方便调用。具体用法看下面。</p>
+<h3 id="申请单个权限">申请单个权限</h3>
+<ol>
+<li>和以前一样在清单文件申请权限，这里随便申请两个权限</li>
+</ol>
+<pre><code>&lt;uses-permission android:name=&quot;android.permission.CAMERA&quot;/&gt;
+    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/&gt;
+</code></pre>
+<p>carme 和 write 就是这两个权限。</p>
+<ol start="2">
+<li>提前生成对象ActivityResultLauncher，两种用法看个人更喜欢哪种</li>
+</ol>
+<pre><code>//ktx 的用法
+    val single = requestPermission(camera,
+        granted = {
+            //同意权限
+        }, denied = {
+            //拒绝权限
+        }, explained = {
+            //拒绝并且不再显示
+        })
+</code></pre>
+<pre><code> // dsl 用法, 更好用更省事
+    val singleDsl = requestPermissionK(camera) {
+        //有两种写法,个人更喜欢下面这种不用写=,两个都写只有一个生效
+        //granted = {}
+        granted { /*同意权限*/ }
+        denied { /*拒绝权限*/ }
+        explained { /*拒绝并且不再显示*/ }
+</code></pre>
+<ol start="3">
+<li>调用</li>
+</ol>
+<pre><code>//调用
+//        single.launch(camera)
+        singleDsl.launch(camera)
+</code></pre>
+<h3 id="申请多个权限">申请多个权限</h3>
+<p>使用方法基本和上面类似，这次全部放在一起。</p>
+<pre><code>  //ktx 写法
+    val multiple = requestMultiplePermissions(
+        allGranted = {
+            //全部同意
+        },denied = {
+            //拒绝
+        },explained = {
+            //拒绝并不再显示
+        }
+    )
+    //dsl
+    val multipleDsl = requestPermissionK {
+        allGranted {  }
+        denied {  }
+        explained {  }
+    }
+    fun applyMultiple(view: View) {
+//        multiple.launch(arrayOf(camera,write))
+        multipleDsl.launch(arrayOf(camera,write))
+    }
+</code></pre>
+<h2 id="参考">参考</h2>
+<p><a href="https://gitee.com/quetzalcoatl/ActivityResultApi">项目地址</a></p>
+<p><a href="https://juejin.cn/post/6844904200644591630">开源项目：使用 Activity Result API + Kotlin 扩展函数 封装权限请求库(支持 DSL 写法)</a></p>
+<p><a href="https://www.jianshu.com/p/b18a57a497b3">Jetpack Activity Result API 优雅的实现页面传值</a></p>
+<p><a href="https://mp.weixin.qq.com/s/r_9x7-48_tD-cFOX07GDfA">Android 新出功能 ActivityResultContract，真香！</a></p>
+<p><a href="https://mp.weixin.qq.com/s/jcnFN73d002OfRXRx6u3yA">你好，Activity Results API！</a></p>
 
               </div>
               <div class="toc-container">
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99">🏠 关于本站</a></li>
-<li><a href="#%E5%8D%9A%E4%B8%BB%E6%98%AF%E8%B0%81">👨‍💻 博主是谁</a></li>
-<li><a href="#%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD">⛹ 兴趣爱好</a></li>
-<li><a href="#%E8%81%94%E7%B3%BB%E6%88%91%E5%91%80">📬 联系我呀</a></li>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#intentktx">IntentKtx</a></li>
+<li><a href="#%E5%B0%81%E8%A3%85%E4%BD%BF%E7%94%A8%E7%95%8C%E9%9D%A2%E8%B7%B3%E8%BD%AC">封装使用界面跳转</a>
+<ul>
+<li><a href="#1%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96">1.导入依赖</a></li>
+<li><a href="#2%E8%B7%B3%E8%BD%AC%E4%BD%BF%E7%94%A8">2.跳转使用</a></li>
+</ul>
+</li>
+<li><a href="#%E7%94%B3%E8%AF%B7%E6%9D%83%E9%99%90">申请权限</a>
+<ul>
+<li><a href="#%E7%94%B3%E8%AF%B7%E5%8D%95%E4%B8%AA%E6%9D%83%E9%99%90">申请单个权限</a></li>
+<li><a href="#%E7%94%B3%E8%AF%B7%E5%A4%9A%E4%B8%AA%E6%9D%83%E9%99%90">申请多个权限</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 </li>
 </ul>
