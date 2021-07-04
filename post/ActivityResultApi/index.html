@@ -4,72 +4,84 @@
     <meta charset="utf-8" >
 
 <title>Activity Result Api DSl | Gridea</title>
-<meta name="description" content="温故而知新">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="shortcut icon" href="https://KiWiLss.github.io/favicon.ico?v=1625385110549">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="shortcut icon" href="https://KiWiLss.github.io/favicon.ico?v=1625385624095">
 <link rel="stylesheet" href="https://KiWiLss.github.io/styles/main.css">
 
 
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-
 
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
+
+    <meta name="description" content="前言
+在安卓开发中，跳转和申请权限设计的比较麻烦，网上有很多优秀的库解决这个问题，谷歌对这个问题做了处理，废弃了以前的方法。具体的使用方法可以参考末尾的参考博客。下面是对这些方法做的基本封装，方便使用。
+IntentKtx
+这个类是对普通跳..." />
+    <meta name="keywords" content="工具" />
   </head>
   <body>
-  
-    <nav class="navbar border fixed split-nav">
-  <div class="nav-brand">
-    <h3><a href="https://KiWiLss.github.io">Gridea</a></h3>
-  </div>
-  <div class="collapsible">
-    <input id="collapsible1" type="checkbox" name="collapsible1">
-    <button>
-      <label for="collapsible1">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
-      </label>
-    </button>
-    <div class="collapsible-body">
-      <ul class="inline">
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://KiWiLss.github.io">
+        <img src="https://KiWiLss.github.io/images/avatar.png?v=1625385624095" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
         
-          <li>
-            
-              <a href="/tags" class="menu">
-                标签
-              </a>
-            
-          </li>
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
         
-      </ul>
+      
     </div>
   </div>
-</nav>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://KiWiLss.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
 
-    <div id="top" class="row site">
-      <div class="sm-12 md-8 col">
-        <div class="paper">
-          <article class="article">
-            <h1>Activity Result Api DSl</h1>
-            <p class="article-meta">
-              2021-07-04
-              
-                <a href="https://KiWiLss.github.io/tag/h40hUlECA/" class="badge secondary">
-                  工具
-                </a>
-              
-            </p>
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Activity Result Api DSl</h2>
+            <div class="post-date">2021-07-04</div>
             
-              <img src="https://KiWiLss.github.io/post-images/ActivityResultApi.jpg" alt="Activity Result Api DSl">
+              <div class="feature-container" style="background-image: url('https://KiWiLss.github.io/post-images/ActivityResultApi.jpg')">
+              </div>
             
-            <div class="post-content">
+            <div class="post-content" v-pre>
               <h2 id="前言">前言</h2>
 <p>在安卓开发中，跳转和申请权限设计的比较麻烦，网上有很多优秀的库解决这个问题，谷歌对这个问题做了处理，废弃了以前的方法。具体的使用方法可以参考末尾的参考博客。下面是对这些方法做的基本封装，方便使用。</p>
 <h2 id="intentktx">IntentKtx</h2>
@@ -209,104 +221,49 @@ implementation 'com.gitee.quetzalcoatl:ActivityResultApi:0.0.3'
 <p><a href="https://mp.weixin.qq.com/s/jcnFN73d002OfRXRx6u3yA">你好，Activity Results API！</a></p>
 
             </div>
-          </article>
-        </div>
-        <div class="paper" data-aos="fade-in">
-          
-            <div class="next-post">
-              <div class="next">
-                下一篇
+            
+              <div class="tag-container">
+                
+                  <a href="https://KiWiLss.github.io/tag/h40hUlECA/" class="tag">
+                    工具
+                  </a>
+                
               </div>
-              <a href="https://KiWiLss.github.io/post/hello-gridea/">
-                <h3 class="post-title">
-                  Hello Gridea
-                </h3>
-              </a>
-            </div>
-          
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://KiWiLss.github.io/post/hello-gridea/">
+                  <h3 class="post-title">
+                    Hello Gridea
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
         </div>
-        
       </div>
-
-      <div class="sm-12 md-4 col sidebar">
-  <div class="paper info-container">
-    <img src="https://KiWiLss.github.io/images/avatar.png?v=1625385110549" class="no-responsive avatar">
-    <div class="text-muted">温故而知新</div>
-    <div class="social-container">
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </div>
-  </div>
-  <div class="paper">
-    <div class="sidebar-title">
-      最新文章
-    </div>
-    <div class="row">
-      <ul>
-        
-          
-            <li>
-              <a href="https://KiWiLss.github.io/post/charsequence-xiang-guan-kuo-zhan-shou-ji/">CharSequence 相关扩展收集</a>
-            </li>
-          
-        
-          
-            <li>
-              <a href="https://KiWiLss.github.io/post/ActivityResultApi/">Activity Result Api DSl</a>
-            </li>
-          
-        
-          
-            <li>
-              <a href="https://KiWiLss.github.io/post/hello-gridea/">Hello Gridea</a>
-            </li>
-          
-        
-      </ul>
-    </div>
-  </div>
-  <div class="paper">
-    <div class="sidebar-title">
-      标签列表
-    </div>
-    <div class="row">
-      
-        <a href="https://KiWiLss.github.io/tag/h40hUlECA/" class="badge secondary">
-          工具
-        </a>
-      
-        <a href="https://KiWiLss.github.io/tag/jKCAB0TQI/" class="badge ">
-          Gridea
-        </a>
-      
-    </div>
-  </div>
-  <div class="paper">
-    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://KiWiLss.github.io/atom.xml" target="_blank">RSS</a>
-  </div>
-</div>
-
-
     </div>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
 <script type="application/javascript">
 
 AOS.init();
 
-hljs.initHighlightingOnLoad()
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
 
 </script>
+
+
 
 
 
