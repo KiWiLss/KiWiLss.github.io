@@ -1,22 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://KiWiLss.github.io</id>
-    <title>KiWiLss</title>
-    <updated>2021-07-04T08:32:04.171Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://KiWiLss.github.io"/>
-    <link rel="self" href="https://KiWiLss.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
-    <logo>https://KiWiLss.github.io/images/avatar.png</logo>
-    <icon>https://KiWiLss.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2021, KiWiLss</rights>
-    <entry>
-        <title type="html"><![CDATA[使用 Fragment 处理 onActivityResult]]></title>
-        <id>https://KiWiLss.github.io/shi-yong-fragment-chu-li-onactivityresult/</id>
-        <link href="https://KiWiLss.github.io/shi-yong-fragment-chu-li-onactivityresult/">
-        </link>
-        <updated>2021-07-04T08:27:24.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="前言">前言</h2>
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>使用 Fragment 处理 onActivityResult | KiWiLss</title>
+
+<link rel="shortcut icon" href="https://KiWiLss.github.io/favicon.ico?v=1625387515474">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://KiWiLss.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            KiWiLss
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="https://KiWiLss.github.io" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://KiWiLss.github.io/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1625387515474" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    使用 Fragment 处理 onActivityResult
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-07-04 ·
+                    </time>
+                    
+                        <a href="https://KiWiLss.github.io/h40hUlECA/" class="post-tags">
+                            # 工具
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h2 id="前言">前言</h2>
 <p>对Activity和Fragment之间的跳转封装处理，在Activity/Framgent中用法基本一样。每个函数基本上都对应着一个扩展函数，方便调用。实现方式有很多种，可以自由组合，实际使用时按需求使用。</p>
 <h2 id="api列表">api列表</h2>
 <pre><code>createIntent        :生成Intent并添加参数(可选）
@@ -649,489 +727,61 @@ dependencies {
         mContext = context
     }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Activity Result Api DSl]]></title>
-        <id>https://KiWiLss.github.io/activity-result-api-dsl/</id>
-        <link href="https://KiWiLss.github.io/activity-result-api-dsl/">
-        </link>
-        <updated>2021-07-04T08:03:59.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="前言">前言</h2>
-<p>在安卓开发中，跳转和申请权限设计的比较麻烦，网上有很多优秀的库解决这个问题，谷歌对这个问题做了处理，废弃了以前的方法。具体的使用方法可以参考末尾的参考博客。下面是对这些方法做的基本封装，方便使用。</p>
-<h2 id="intentktx">IntentKtx</h2>
-<p>这个类是对普通跳转的封装，可以用也可以不用，主要是方便实现简单的跳转。都是扩展函数，直接在 Activity/Fragment 中使用即可。</p>
-<pre><code>createIntent            :生成Intent并添加参数(可选）
-createIntentStart       :生成跳转的Intent并添加参数,也可以不添加参数
-addPair                 :Intent 添加参数
-startActivityK          :跳转
 
-browse                  :打开浏览器
-share                   :生调用分享，只能分享文本
-email                   :发送邮件
-makeCallPermission  :拨打电话，需要权限
-makeCall                :拨打电话
-sendSMS                 :发送短信
-</code></pre>
-<h2 id="封装使用界面跳转">封装使用界面跳转</h2>
-<p>最新版可以参考官网 <a href="https://developer.android.google.cn/jetpack/androidx/releases/activity#kts">Activity</a>,<a href="https://developer.android.google.cn/jetpack/androidx/releases/fragment">Framgnet</a>。</p>
-<h3 id="1导入依赖">1.导入依赖</h3>
-<p>我试了一下只导入最后一个也可以，只是 activity对应的版本不是最新的，如果想两个都是最新的就像下面这样，导入两个就行了。下面是原生的依赖导入：</p>
-<pre><code>   //activity
-    def activity_version = &quot;1.2.3&quot;
-    // Java language implementation
-//    implementation &quot;androidx.activity:activity:$activity_version&quot;
-    // Kotlin
-    api &quot;androidx.activity:activity-ktx:$activity_version&quot;
-    //fragment
-    def fragment_version = &quot;1.3.4&quot;
-    // Java language implementation
-//    implementation &quot;androidx.fragment:fragment:$fragment_version&quot;
-    // Kotlin
-    api &quot;androidx.fragment:fragment-ktx:$fragment_version&quot;
-</code></pre>
-<p>封装后的依赖导入，最新版看最后的项目地址：</p>
-<pre><code>maven { url 'https://www.jitpack.io' }
- 
-implementation 'com.gitee.quetzalcoatl:ActivityResultApi:0.0.3'
-</code></pre>
-<h3 id="2跳转使用">2.跳转使用</h3>
-<ol>
-<li>第一步生成 ActivityResultLauncher,在这里面可以监听回调。</li>
-</ol>
-<pre><code>  private val startTest = startActivityForResultK {
-        //这里是回调,相当于 onActivityResult
-        if (it.resultCode == RESULT_OK){
-            //获取回传值,这里就是以前的 intent
-            it.data?.run {
-                Toast.makeText(this@MainActivity,
-                    &quot;${getStringExtra(&quot;result&quot;)}&quot;, Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-</code></pre>
-<ol start="2">
-<li>第二步调用跳转</li>
-</ol>
-<pre><code> fun testStart(view: View) {
-        //调用跳转
-        startTest.launch(createIntentStart&lt;WelcomeActivity&gt;(&quot;text&quot; to &quot;这里可以传多个参数&quot;))
-    }
-</code></pre>
-<ol start="3">
-<li>获取参数，回传信息<br>
-这里和以前用法一样，没有变化，示例如下：</li>
-</ol>
-<pre><code>  tvText.text = intent.getStringExtra(&quot;text&quot;)
-    //回传任意值
-        setResult(RESULT_OK,createIntent(&quot;result&quot; to &quot;hello&quot;))
-        finish()
-</code></pre>
-<h2 id="申请权限">申请权限</h2>
-<p>申请权限和上面使用步骤类似，这里做了两种封装，一个单纯的扩展函数，可以直接调用。另一个对扩展做了封装，可以更方便调用。具体用法看下面。</p>
-<h3 id="申请单个权限">申请单个权限</h3>
-<ol>
-<li>和以前一样在清单文件申请权限，这里随便申请两个权限</li>
-</ol>
-<pre><code>&lt;uses-permission android:name=&quot;android.permission.CAMERA&quot;/&gt;
-    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/&gt;
-</code></pre>
-<p>carme 和 write 就是这两个权限。</p>
-<ol start="2">
-<li>提前生成对象ActivityResultLauncher，两种用法看个人更喜欢哪种</li>
-</ol>
-<pre><code>//ktx 的用法
-    val single = requestPermission(camera,
-        granted = {
-            //同意权限
-        }, denied = {
-            //拒绝权限
-        }, explained = {
-            //拒绝并且不再显示
-        })
-</code></pre>
-<pre><code> // dsl 用法, 更好用更省事
-    val singleDsl = requestPermissionK(camera) {
-        //有两种写法,个人更喜欢下面这种不用写=,两个都写只有一个生效
-        //granted = {}
-        granted { /*同意权限*/ }
-        denied { /*拒绝权限*/ }
-        explained { /*拒绝并且不再显示*/ }
-</code></pre>
-<ol start="3">
-<li>调用</li>
-</ol>
-<pre><code>//调用
-//        single.launch(camera)
-        singleDsl.launch(camera)
-</code></pre>
-<h3 id="申请多个权限">申请多个权限</h3>
-<p>使用方法基本和上面类似，这次全部放在一起。</p>
-<pre><code>  //ktx 写法
-    val multiple = requestMultiplePermissions(
-        allGranted = {
-            //全部同意
-        },denied = {
-            //拒绝
-        },explained = {
-            //拒绝并不再显示
-        }
-    )
-    //dsl
-    val multipleDsl = requestPermissionK {
-        allGranted {  }
-        denied {  }
-        explained {  }
-    }
-    fun applyMultiple(view: View) {
-//        multiple.launch(arrayOf(camera,write))
-        multipleDsl.launch(arrayOf(camera,write))
-    }
-</code></pre>
-<h2 id="参考">参考</h2>
-<p><a href="https://gitee.com/quetzalcoatl/ActivityResultApi">项目地址</a></p>
-<p><a href="https://juejin.cn/post/6844904200644591630">开源项目：使用 Activity Result API + Kotlin 扩展函数 封装权限请求库(支持 DSL 写法)</a></p>
-<p><a href="https://www.jianshu.com/p/b18a57a497b3">Jetpack Activity Result API 优雅的实现页面传值</a></p>
-<p><a href="https://mp.weixin.qq.com/s/r_9x7-48_tD-cFOX07GDfA">Android 新出功能 ActivityResultContract，真香！</a></p>
-<p><a href="https://mp.weixin.qq.com/s/jcnFN73d002OfRXRx6u3yA">你好，Activity Results API！</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[CharSequence 相关扩展收集]]></title>
-        <id>https://KiWiLss.github.io/charsequence-xiang-guan-kuo-zhan-shou-ji/</id>
-        <link href="https://KiWiLss.github.io/charsequence-xiang-guan-kuo-zhan-shou-ji/">
-        </link>
-        <updated>2021-07-04T07:47:00.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="前言">前言</h2>
-<p>主要是关于一些字符串判断相关内容，<strong>主要包括判断字符串是否含有空格、是否含有汉字、是否含有字母、是否含有数字、特殊符号</strong>等，字符串本身就有很多 Api 可以实现很多功能，但是对于判断方面就少了点，这里把收集到的常用的整理起来，可以直接使用。</p>
-<h2 id="函数列表">函数列表</h2>
-<ul>
-<li>判断相关</li>
-</ul>
-<pre><code class="language-kotlin">isNotNullOrEmpty		:CharSequence不为 null 或者 empty
-isHasSpecial			:是否含有特殊字符,true有，false没有
-isHasChinese			:是否含有汉字,true有，false没有
-isChinese				:是否全是汉字
-isHasLower				:是否含有小写字母,true有，false没有
-isLower					:是否全是大写字母
-isHasCapital			:是否含有大写字母,true有，false没有
-isCapital				:是否全是大写字母
-isHasLetter				:是否含有字母，不区分大小写，true有，false没有
-isLetter				:是否全是字母
-isHasDigit				:是否含有数字，true有，false没有
-isDigits				:是否全是数字，也可以用isDigitsOnly
-isDigits2				:是否全是数字，也可以用isDigitsOnly
-isHasSpace				:是否含有空格，true有，false没有
-isSpace					:是否全是空格
+                </div>
+            </article>
+        </div>
 
-Char.isSpace()			:判断字符是否是空格
-</code></pre>
-<ul>
-<li>其他</li>
-</ul>
-<pre><code class="language-kotlin">
-substringBetween		:指定裁剪出str中open和close包含着的那部分字符串
-toFirstUpperCase		:首字母大写，或者调用capitalize
-toFirstLowerCase		:首字母小写，或者调用decapitalize
-substringUnDigits		:截取非数字，只能截取第一段连续的，不在首位截取不到
-substringDigits			:截取数字，只能截取第一段连续的数字
-substringAllDigits		:截取数字，截取所有的数字
-stringSize				:特定字符串的数量
-charSize				:含有特定字符的数量
-spaceSize				:含有空格数量
-</code></pre>
-<h2 id="工具类">工具类</h2>
-<pre><code class="language-kotlin">object CharSequenceKtx {
-    //匹配任何空白字符，包括空格、制表符、换页符等。与 [ \f\n\r\t\v] 等效
-    const val SPACE = &quot;[\\s]&quot;
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://KiWiLss.github.io/activity-result-api-dsl/" class="post-title gt-a-link">
+                    Activity Result Api DSl
+                </a>
+            </div>
+        
 
-    //匹配任何非空白字符。与 [^ \f\n\r\t\v] 等效
-    const val UN_SPACE = &quot;[\\S]&quot;
+        
 
-    //数字字符匹配。等效于 [0-9]
-    const val DIGITS = &quot;[\\d]&quot;
+        
 
-    //非数字字符匹配。等效于 [^0-9]
-    const val UN_DIGITS = &quot;[\\D]&quot;
+        
 
-    //匹配任何字类字符，包括下划线。与&quot;[A-Za-z0-9_]&quot;等效
-    const val DIGITS_LETTER_UNDERLINE = &quot;[\\w]&quot;
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/KiWiLss" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">KiWiLss</a>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://KiWiLss.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
 
-    //与任何非单词字符匹配。与&quot;[^A-Za-z0-9_]&quot;等效
-    const val UN_DIGITS_LETTER = &quot;[\\W]&quot;
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
 
-    //匹配大写字母
-    const val UPPERCASE_LETTER = &quot;[A-Z]&quot;
-
-    //匹配小写字母
-    const val LOWER_LETTER = &quot;[a-z]&quot;
-
-    //匹配字母
-    const val LETTER = &quot;[a-zA-Z]&quot;
-
-    //匹配字母和数字
-    const val DIGITS_LETTER = &quot;[a-zA-Z0-9]&quot;
-
-    //匹配汉字
-    const val CHINESE = &quot;[\u4e00-\u9fa5]&quot;
-
-    //匹配特殊字符
-    const val SPECIAL_CHARACTERS =
-        &quot;[ _`~!@#$%^&amp;*()+=|{}':;',\\[\\].&lt;&gt;/?~！@#￥%……&amp;*（）——+|{}【】‘；：”“’。，、？]|\n|\r|\t&quot;
-}
-
-//fun CharSequence?.isBank() = this.isBlank()
-
-
-fun testSpace(): Unit {
-    val test: String = &quot;hello&quot;
-    val test2 = &quot;noSpace&quot;
-    val test3 = &quot; 2321fdf汉字 --9**&amp;&quot;
-    val test4 = &quot; he llo &quot;
-    val test5 = &quot;函数 zifu 2134&quot;
-    println(&quot;----------------&quot;)
-
-    println(test4.removePrefix(&quot; &quot;))//移除前缀
-    println(test4.removeSuffix(&quot; &quot;))//移除后缀
-/*    println(test3.stringSize(&quot;2&quot;))
-    println(test.stringSize(&quot;2&quot;))
-    println(test.stringSize(&quot;l&quot;))*/
-
-/*    println(test5.replace(Regex(&quot;[\\d]&quot;), &quot;*&quot;))//数字替换
-
-    println(test5.replace(Regex(CharSequenceKtx.SPACE), &quot;&quot;))//删除所有空格
-    println(test4.trim())
-    println(test3.substringBefore(&quot;f&quot;))//截取指定字符串之前的内容*/
-
-
-/*    println(test5.toUpperCase())//字母大写
-    println(test.capitalize())//首字母大写
-    println(test2.decapitalize())//首字母小写
-    println(test2.toLowerCase())//字母小写*/
-
-//    println(test5.contains(Regex(CharSequenceKtx.DIGITS)))
-//    println(test5.contains(Regex(CharSequenceKtx.UPPERCASE_LETTER)))
-/*    println(test.matches(Regex(&quot;[a-z]*&quot;)))//是否全是小写字母
-    println(test2.matches(Regex(&quot;[a-z]*&quot;)))//是否全是小写字母
-
-    println(test.contains(Regex(CharSequenceKtx.LOWER_LETTER)))
-    println(test.matches(Regex(&quot;${CharSequenceKtx.LOWER_LETTER}*&quot;)))
-    println(&quot;${CharSequenceKtx.LOWER_LETTER}*&quot;)
-    println(test5.contains(Regex(CharSequenceKtx.CHINESE)))
-    println(test5.matches(Regex(CharSequenceKtx.CHINESE + &quot;*&quot;)))*/
-//    println(test2.first().toUpperCase() + test2.substring(1))
-    //过滤非数字
-    /*  println(test3.filter {
-          it.isDigit()
-      })*/
-    /*  println(test3.substringUnDigits())
-      println(test2.substringUnDigits())*/
-//    println(test.substringDigits())
-//    println(test5.substringDigits())
-
-}
-
-/**
- *CharSequence不为 null 或者 empty
- */
-fun CharSequence?.isNotNullOrEmpty() = !isNullOrEmpty()
-
-/**
- *〈指定裁剪出str中open和close包含着的那部分字符串〉
- * @param open
- * @param close
- * @return
- */
-fun CharSequence?.substringBetween(open: String?, close: String?): String? {
-    if (isNullOrEmpty() || open.isNullOrEmpty() || close.isNullOrEmpty()) return null
-    val start = this!!.indexOf(open)
-    if (start != -1) {
-        val end = indexOf(close, start + open.length)
-        if (end != -1) {
-            return substring(start + open.length, end)
-        }
-    }
-    return null
-}
-
-fun CharSequence?.substringBetween(tag: String?) = substringBetween(tag, tag)
-
-/**
- *首字母大写，或者调用capitalize
- * @return
- */
-fun CharSequence.toFirstUpperCase(): CharSequence {
-    if (isEmpty()) {
-        return &quot;&quot;
-    }
-    return first().toUpperCase() + substring(1)
-}
-
-/**
- *首字母小写，或者调用decapitalize
- * @return
- */
-fun CharSequence.toFirstLowerCase(): CharSequence {
-    if (isEmpty()) {
-        return &quot;&quot;
-    }
-    return first().toLowerCase() + substring(1)
-}
-
-/**
- *截取非数字，只能截取第一段连续的，不在首位截取不到
- * @return
- */
-fun CharSequence.substringUnDigits(): CharSequence {
-    val pattern = Pattern.compile(&quot;\\D+&quot;)
-    val matcher = pattern.matcher(this)
-    while (matcher.find()) {
-        return matcher.group(0)
-    }
-    return &quot;&quot;
-}
-
-/**
- *截取数字，只能截取第一段连续的数字
- * @return
- */
-fun CharSequence.substringDigits(): CharSequence {
-    val pattern = Pattern.compile(&quot;\\d+&quot;)
-    val matcher = pattern.matcher(this)
-    while (matcher.find()) {
-        return matcher.group(0)
-    }
-    return &quot;&quot;
-}
-
-/**
- *截取数字，截取所有的数字
- * @return
- */
-fun CharSequence.substringAllDigits(): CharSequence {
-    val pattern = Pattern.compile(&quot;\\d+&quot;)
-    val matcher = pattern.matcher(this)
-    val sb = StringBuilder()
-    while (matcher.find()) {
-        sb.append(matcher.group())
-    }
-    return sb
-}
-
-/**
- *特定字符串的数量
- * @param tag
- * @return
- */
-fun CharSequence.stringSize(tag: String): Int {
-    return split(tag).size - 1
-}
-
-/**
- *含有特定字符的数量
- * @param char
- * @return
- */
-fun CharSequence.charSize(char: Char): Int {
-    var count = 0
-    forEach {
-        if (it == char) {
-            count++
-        }
-    }
-    return count
-}
-
-/**
- *含有空格数量
- * @return
- */
-fun CharSequence.spaceSize(): Int {
-    var count = 0
-    forEach {
-        if (it.isSpace()) {
-            count++
-        }
-    }
-    return count
-}
-
-/**
- *是否含有特殊字符,true有，false没有
- */
-fun CharSequence.isHasSpecial() = contains(Regex(CharSequenceKtx.SPECIAL_CHARACTERS))
-
-/**
- *是否含有汉字,true有，false没有
- */
-fun CharSequence.isHasChinese() = contains(Regex(CharSequenceKtx.CHINESE))
-
-/**
- *是否全是汉字
- */
-fun CharSequence.isChinese() = matches(Regex(CharSequenceKtx.CHINESE + &quot;+&quot;))
-
-/**
- *是否含有小写字母,true有，false没有
- */
-fun CharSequence.isHasLower() = contains(Regex(CharSequenceKtx.LOWER_LETTER))
-
-/**
- *是否全是大写字母
- */
-fun CharSequence.isLower() = matches(Regex(CharSequenceKtx.LOWER_LETTER + &quot;+&quot;))
-
-/**
- *是否含有大写字母,true有，false没有
- */
-fun CharSequence.isHasCapital() = contains(Regex(CharSequenceKtx.UPPERCASE_LETTER))
-
-/**
- *是否全是大写字母
- */
-fun CharSequence.isCapital() = matches(Regex(CharSequenceKtx.UPPERCASE_LETTER + &quot;+&quot;))
-
-/**
- *是否含有字母，不区分大小写，true有，false没有
- */
-fun CharSequence.isHasLetter() = contains(Regex(CharSequenceKtx.LETTER))
-
-/**
- *是否全是字母
- */
-fun CharSequence.isLetter() = matches(Regex(CharSequenceKtx.LETTER + &quot;+&quot;))
-
-/**
- *是否含有数字，true有，false没有
- */
-fun CharSequence.isHasDigit() = contains(Regex(CharSequenceKtx.DIGITS))
-
-/**
- *是否全是数字，也可以用isDigitsOnly
- */
-fun CharSequence.isDigits() = matches(Regex(CharSequenceKtx.DIGITS + &quot;+&quot;))
-
-/**
- *是否全都是数字
- */
-fun CharSequence.isDigits2() = Pattern.compile(&quot;[\\d]+&quot;).matcher(this).matches()
-
-/**
- *是否含有空格，true有，false没有
- */
-fun CharSequence.isHasSpace() = contains(Regex(CharSequenceKtx.SPACE))
-
-/**
- *是否全是空格
- */
-fun CharSequence.isSpace() = matches(Regex(CharSequenceKtx.SPACE + &quot;+&quot;))
-
-/**
- *判断字符是否是空格
- */
-fun Char.isSpace() = this.toString().isHasSpace()
-</code></pre>
-<p>持续整理中...</p>
-]]></content>
-    </entry>
-</feed>
+    </div>
+</div>
+</body>
+</html>
