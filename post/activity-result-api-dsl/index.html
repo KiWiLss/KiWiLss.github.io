@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Activity Result Api DSl | Gridea</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://KiWiLss.github.io/favicon.ico?v=1625385896243">
+<link rel="stylesheet" href="https://KiWiLss.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="前言
+在安卓开发中，跳转和申请权限设计的比较麻烦，网上有很多优秀的库解决这个问题，谷歌对这个问题做了处理，废弃了以前的方法。具体的使用方法可以参考末尾的参考博客。下面是对这些方法做的基本封装，方便使用。
+IntentKtx
+这个类是对普通跳..." />
+    <meta name="keywords" content="工具" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://KiWiLss.github.io">
+        <img src="https://KiWiLss.github.io/images/avatar.png?v=1625385896243" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="https://KiWiLss.github.io/tags" class="site-nav">
+            测试
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://KiWiLss.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Activity Result Api DSl</h2>
+            <div class="post-date">2021-07-04</div>
+            
+              <div class="feature-container" style="background-image: url('https://KiWiLss.github.io/post-images/activity-result-api-dsl.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言">前言</h2>
+<p>在安卓开发中，跳转和申请权限设计的比较麻烦，网上有很多优秀的库解决这个问题，谷歌对这个问题做了处理，废弃了以前的方法。具体的使用方法可以参考末尾的参考博客。下面是对这些方法做的基本封装，方便使用。</p>
+<h2 id="intentktx">IntentKtx</h2>
+<p>这个类是对普通跳转的封装，可以用也可以不用，主要是方便实现简单的跳转。都是扩展函数，直接在 Activity/Fragment 中使用即可。</p>
+<pre><code>createIntent            :生成Intent并添加参数(可选）
+createIntentStart       :生成跳转的Intent并添加参数,也可以不添加参数
+addPair                 :Intent 添加参数
+startActivityK          :跳转
+
+browse                  :打开浏览器
+share                   :生调用分享，只能分享文本
+email                   :发送邮件
+makeCallPermission  :拨打电话，需要权限
+makeCall                :拨打电话
+sendSMS                 :发送短信
+</code></pre>
+<h2 id="封装使用界面跳转">封装使用界面跳转</h2>
+<p>最新版可以参考官网 <a href="https://developer.android.google.cn/jetpack/androidx/releases/activity#kts">Activity</a>,<a href="https://developer.android.google.cn/jetpack/androidx/releases/fragment">Framgnet</a>。</p>
+<h3 id="1导入依赖">1.导入依赖</h3>
+<p>我试了一下只导入最后一个也可以，只是 activity对应的版本不是最新的，如果想两个都是最新的就像下面这样，导入两个就行了。下面是原生的依赖导入：</p>
+<pre><code>   //activity
+    def activity_version = &quot;1.2.3&quot;
+    // Java language implementation
+//    implementation &quot;androidx.activity:activity:$activity_version&quot;
+    // Kotlin
+    api &quot;androidx.activity:activity-ktx:$activity_version&quot;
+    //fragment
+    def fragment_version = &quot;1.3.4&quot;
+    // Java language implementation
+//    implementation &quot;androidx.fragment:fragment:$fragment_version&quot;
+    // Kotlin
+    api &quot;androidx.fragment:fragment-ktx:$fragment_version&quot;
+</code></pre>
+<p>封装后的依赖导入，最新版看最后的项目地址：</p>
+<pre><code>maven { url 'https://www.jitpack.io' }
+ 
+implementation 'com.gitee.quetzalcoatl:ActivityResultApi:0.0.3'
+</code></pre>
+<h3 id="2跳转使用">2.跳转使用</h3>
+<ol>
+<li>第一步生成 ActivityResultLauncher,在这里面可以监听回调。</li>
+</ol>
+<pre><code>  private val startTest = startActivityForResultK {
+        //这里是回调,相当于 onActivityResult
+        if (it.resultCode == RESULT_OK){
+            //获取回传值,这里就是以前的 intent
+            it.data?.run {
+                Toast.makeText(this@MainActivity,
+                    &quot;${getStringExtra(&quot;result&quot;)}&quot;, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+</code></pre>
+<ol start="2">
+<li>第二步调用跳转</li>
+</ol>
+<pre><code> fun testStart(view: View) {
+        //调用跳转
+        startTest.launch(createIntentStart&lt;WelcomeActivity&gt;(&quot;text&quot; to &quot;这里可以传多个参数&quot;))
+    }
+</code></pre>
+<ol start="3">
+<li>获取参数，回传信息<br>
+这里和以前用法一样，没有变化，示例如下：</li>
+</ol>
+<pre><code>  tvText.text = intent.getStringExtra(&quot;text&quot;)
+    //回传任意值
+        setResult(RESULT_OK,createIntent(&quot;result&quot; to &quot;hello&quot;))
+        finish()
+</code></pre>
+<h2 id="申请权限">申请权限</h2>
+<p>申请权限和上面使用步骤类似，这里做了两种封装，一个单纯的扩展函数，可以直接调用。另一个对扩展做了封装，可以更方便调用。具体用法看下面。</p>
+<h3 id="申请单个权限">申请单个权限</h3>
+<ol>
+<li>和以前一样在清单文件申请权限，这里随便申请两个权限</li>
+</ol>
+<pre><code>&lt;uses-permission android:name=&quot;android.permission.CAMERA&quot;/&gt;
+    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/&gt;
+</code></pre>
+<p>carme 和 write 就是这两个权限。</p>
+<ol start="2">
+<li>提前生成对象ActivityResultLauncher，两种用法看个人更喜欢哪种</li>
+</ol>
+<pre><code>//ktx 的用法
+    val single = requestPermission(camera,
+        granted = {
+            //同意权限
+        }, denied = {
+            //拒绝权限
+        }, explained = {
+            //拒绝并且不再显示
+        })
+</code></pre>
+<pre><code> // dsl 用法, 更好用更省事
+    val singleDsl = requestPermissionK(camera) {
+        //有两种写法,个人更喜欢下面这种不用写=,两个都写只有一个生效
+        //granted = {}
+        granted { /*同意权限*/ }
+        denied { /*拒绝权限*/ }
+        explained { /*拒绝并且不再显示*/ }
+</code></pre>
+<ol start="3">
+<li>调用</li>
+</ol>
+<pre><code>//调用
+//        single.launch(camera)
+        singleDsl.launch(camera)
+</code></pre>
+<h3 id="申请多个权限">申请多个权限</h3>
+<p>使用方法基本和上面类似，这次全部放在一起。</p>
+<pre><code>  //ktx 写法
+    val multiple = requestMultiplePermissions(
+        allGranted = {
+            //全部同意
+        },denied = {
+            //拒绝
+        },explained = {
+            //拒绝并不再显示
+        }
+    )
+    //dsl
+    val multipleDsl = requestPermissionK {
+        allGranted {  }
+        denied {  }
+        explained {  }
+    }
+    fun applyMultiple(view: View) {
+//        multiple.launch(arrayOf(camera,write))
+        multipleDsl.launch(arrayOf(camera,write))
+    }
+</code></pre>
+<h2 id="参考">参考</h2>
+<p><a href="https://gitee.com/quetzalcoatl/ActivityResultApi">项目地址</a></p>
+<p><a href="https://juejin.cn/post/6844904200644591630">开源项目：使用 Activity Result API + Kotlin 扩展函数 封装权限请求库(支持 DSL 写法)</a></p>
+<p><a href="https://www.jianshu.com/p/b18a57a497b3">Jetpack Activity Result API 优雅的实现页面传值</a></p>
+<p><a href="https://mp.weixin.qq.com/s/r_9x7-48_tD-cFOX07GDfA">Android 新出功能 ActivityResultContract，真香！</a></p>
+<p><a href="https://mp.weixin.qq.com/s/jcnFN73d002OfRXRx6u3yA">你好，Activity Results API！</a></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://KiWiLss.github.io/tag/h40hUlECA/" class="tag">
+                    工具
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://KiWiLss.github.io/post/charsequence-xiang-guan-kuo-zhan-shou-ji/">
+                  <h3 class="post-title">
+                    CharSequence 相关扩展收集
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
