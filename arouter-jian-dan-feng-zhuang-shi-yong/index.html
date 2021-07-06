@@ -1,10 +1,10 @@
-<html lang="zh">
+<html>
 <head>
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>关于 - KiWiLss</title>
+<title>Arouter简单封装使用 | KiWiLss</title>
 
 <link rel="shortcut icon" href="https://KiWiLss.github.io/favicon.ico?v=1625585513413">
 
@@ -25,7 +25,7 @@
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
@@ -86,18 +86,129 @@
 </nav>
 
     <div class="post-container">
-        <div class="post-detail">
+        <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
-                <div class="post-content">
+                <h2 class="post-title">
+                    Arouter简单封装使用
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-07-06 ·
+                    </time>
                     
+                        <a href="https://KiWiLss.github.io/h40hUlECA/" class="post-tags">
+                            # 工具
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h2 id="前言">前言</h2>
+<p>主要是对<a href="https://github.com/alibaba/ARouter">ARouter</a>封装使用，只做了简单的封装处理，使用了扩展函数，方便使用，减少重复代码，提高效率。</p>
+<h2 id="方法列表">方法列表</h2>
+<ul>
+<li>PostCard扩展函数</li>
+</ul>
+<pre><code>pretreatment    :预处理方法，原ARouter中的实现，不过舍弃了拦截器和自定义callback
+buildIntent     :生成可跳转带参数的 intent
+navigateForResult  :带回调的跳转
+</code></pre>
+<ul>
+<li>RouterKtx扩展函数</li>
+</ul>
+<pre><code>startActivityA    :普通的跳转
+startActivityForResultA  :回调跳转
+</code></pre>
+<h2 id="导入依赖">导入依赖</h2>
+<pre><code>maven { url 'https://www.jitpack.io' }
+
+implementation 'com.gitee.quetzalcoatl.ActivityResultApi:arouter:0.0.4'
+kapt 'com.alibaba:arouter-compiler:1.5.2'
+</code></pre>
+<p>同时在 gradle 中还要加入:</p>
+<pre><code>id 'kotlin-kapt'
+kapt {
+    arguments {
+        arg(&quot;AROUTER_MODULE_NAME&quot;, project.getName())
+    }
+}
+</code></pre>
+<p>加入导入后报错，可以试试在project 的gradle.properties 中加入</p>
+<pre><code>android.useAndroidX=true
+android.enableJetifier=true
+</code></pre>
+<h2 id="使用详情">使用详情</h2>
+<h4 id="1-postcard-使用介绍">1. PostCard 使用介绍</h4>
+<p>首先是 PostCard 的使用，这个没有 RouterKtx 用起来方便，不过还是简单介绍一下<br>
+，在 Activitiy/Fragment 中都是调用navigateForResult这个方法，参数和阿里路由传参方法一样，示例如下：</p>
+<pre><code>   ARouter.getInstance().build(RouterPage.ROUTER_ONE)
+            .withString(&quot;key&quot;,&quot;keykeykey&quot;)
+            .navigateForResult(this,99){requestCode, resultCode, data -&gt;
+                Log.e(TAG, &quot;: $requestCode --- $resultCode ---${data?.getStringExtra(&quot;result&quot;)}&quot; );
+            }
+</code></pre>
+<h4 id="2-routerktx-使用介绍">2. RouterKtx 使用介绍</h4>
+<ol>
+<li>无参普通跳转</li>
+</ol>
+<pre><code>startActivityA(RouterPage.ROUTER_TWO)
+</code></pre>
+<ol start="2">
+<li>使用 Bundle 传参跳转</li>
+</ol>
+<pre><code>val bundle = Bundle()
+bundle.putString(&quot;key&quot;,&quot;这是 bundle 传值&quot;)
+startActivityA(RouterPage.ROUTER_ONE,bundle)
+</code></pre>
+<ol start="3">
+<li>使用 Pair 传参跳转</li>
+</ol>
+<pre><code>startActivityA(RouterPage.ROUTER_ONE,&quot;key&quot; to &quot;这是 pair 传值&quot;, &quot;key2&quot; to 88)
+</code></pre>
+<ol start="4">
+<li>无参回调跳转</li>
+</ol>
+<pre><code>startActivityForResultA(RouterPage.ROUTER_ONE){resultCode,data-&gt;
+      Log.e(TAG, &quot;:  --- $resultCode ---${data?.getStringExtra(&quot;result&quot;)}&quot; );
+}
+</code></pre>
+<ol start="5">
+<li>Bundler 传参回调跳转</li>
+</ol>
+<pre><code>val bundle = Bundle()
+bundle.putString(&quot;key&quot;,&quot;这是 bundle 传值&quot;)
+startActivityForResultA(RouterPage.ROUTER_ONE,bundle){resultCode,data-&gt;
+    Log.e(TAG, &quot;:  --- $resultCode ---${data?.getStringExtra(&quot;result&quot;)}&quot; );
+}
+</code></pre>
+<ol start="6">
+<li>Pari 传参回调跳转</li>
+</ol>
+<pre><code>startActivityForResultA(RouterPage.ROUTER_ONE,
+        &quot;key&quot; to &quot;这是 pair 传值&quot;, &quot;key2&quot; to 88){resultCode,data-&gt;
+       Log.e(TAG, &quot;:  --- $resultCode ---${data?.getStringExtra(&quot;result&quot;)}&quot; );
+}
+</code></pre>
+<h2 id="地址">地址</h2>
+<p><a href="https://gitee.com/quetzalcoatl/ActivityResultApi">项目地址</a></p>
+
                 </div>
             </article>
         </div>
-        <br>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://KiWiLss.github.io/shi-yong-fragment-chu-li-onactivityresult/" class="post-title gt-a-link">
+                    使用 Fragment 处理 onActivityResult
+                </a>
+            </div>
         
 
         
 
+        
+
+        
 
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first">温故而知新</div>
