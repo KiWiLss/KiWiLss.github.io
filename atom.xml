@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://KiWiLss.github.io</id>
     <title>KiWiLss</title>
-    <updated>2021-07-06T15:32:01.596Z</updated>
+    <updated>2021-08-02T15:40:26.849Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://KiWiLss.github.io"/>
     <link rel="self" href="https://KiWiLss.github.io/atom.xml"/>
@@ -10,6 +10,142 @@
     <logo>https://KiWiLss.github.io/images/avatar.png</logo>
     <icon>https://KiWiLss.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, KiWiLss</rights>
+    <entry>
+        <title type="html"><![CDATA[安卓蓝牙问题汇总]]></title>
+        <id>https://KiWiLss.github.io/an-zhuo-lan-ya-wen-ti-hui-zong/</id>
+        <link href="https://KiWiLss.github.io/an-zhuo-lan-ya-wen-ti-hui-zong/">
+        </link>
+        <updated>2021-08-02T15:38:50.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="概述">概述</h3>
+<p>低功耗蓝牙，只对安卓5.0以上有用。列举出蓝牙开发中遇到的大部分问题以及对应的解决方法，有些解决方法尝试后没什么效果，不确定具体原因。实际效果受到手机，蓝牙硬件等影响，测试主要使用的是华为和小米手机，其他手机使用效果不确定。下面的问题是开发中实际遇到的问题，已经在网上搜索到的问题做个汇总。</p>
+<h3 id="扫描问题">扫描问题</h3>
+<ol>
+<li>
+<p>扫描尽量不要放在主线程，可以放入子线程。不然有些机型会出现 do too many work in main thread. 个人是在主线程扫描，暂时没有遇到问题。</p>
+</li>
+<li>
+<p>扫描不到设备</p>
+<p>先检查蓝牙是否打开，相关权限是否授权，6.0以上需要位置权限，7.0以上需要打开GPS。</p>
+</li>
+<li>
+<p>不要频繁扫描，断开扫描</p>
+<p>谷歌未来防止BLE扫描滥用，做了限制，不要在30s内对蓝牙扫描重复开启关闭超过5次。</p>
+</li>
+<li>
+<p>手机退到后台扫描不到设备</p>
+<p>安卓8.0以上退到后台息屏后，为了保证省电等原因，如果不设置ScanFilters默认扫不到设备。不过我加了以后，还是没有效果，但是还是加上的好。</p>
+<pre><code class="language-kotlincsharp">mScannerSetting = new ScanSettings.Builder()
+                    //退到后台时设置扫描模式为低功耗
+                    .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER)
+                    .build();
+            mFilters.add(new ScanFilter.Builder()
+                    //过滤扫描蓝牙设备的主服务
+                    .setServiceUuid(ParcelUuid.fromString(&quot;0000ffff-0000-1000-8000-00805f9bfffb&quot;))
+                    .build());
+            mScanner.startScan(mFilters, mScannerSetting, mScannerCallback);
+</code></pre>
+</li>
+<li>
+<p>扫描到设备后，在回调中做尽量少的工作，可以把扫描到的设备放到另外一个线程中处理。</p>
+</li>
+</ol>
+<h3 id="连接问题">连接问题</h3>
+<ol>
+<li>
+<p>同时连接多个设备时经常连接不成功</p>
+<p>在使用 BluetoothGatt建立连接的时候，在任何时刻都只能最多一个设备在尝试建立连接，如果同时对多个蓝牙设备发起连接，前面的设备连接失败了，后面的设备请求就会被阻塞，不会有任何连接回调。因此对多个设备发起连接请求时，最好建立一个请求队列，前一个设备建立连接，后面请求队列中等待。前面的连接成功，就处理下一个连接，如果连接失败了，立马调用 BluetoothGatt.disconnect()/close() 来释放连接，处理下一个设备请求，释放连接注意事项参考下一个。</p>
+</li>
+<li>
+<p>BluetoothGatt 的 disconnect() 和 close()</p>
+<p>任何出错，超时，用完就马上调用disconnect() 和 close(),BluetoothGatt.disconnect() 之后不能要马上BluetoothGatt.close().建议在 BluetoothGattCallback中收到BluetoothGatt.STATE_DISCONNECTED时才BluetoothGatt.close()。</p>
+<p>理由：disconnect() 之后调用close()虽然大部分手机调用正常，但存在手机蓝牙连接实际没有断开！！！这个会造成蓝牙资源泄露的问题，甚至蓝牙假死。同时这个最好做一个超时机制来释放连接，避免存在BluetoothGattCallback没有回调的情况。（注：之前有遇到手机在极端情况下没有回调）</p>
+<p>当连接断开后要调<code>closeGatt</code> 释放资源，不用调<code>disconnect</code> ，也不要下次复用之前的<code>gatt</code> 来<code>reconnect</code> ，因为有的手机上重连可能会存在问题，比如重连后死活发现不了<code>service</code> 。这种情况下，最好只要断开连接就<code>close gatt</code> ，下次连接时打开全新的<code>gatt</code> ，这样就可以发现<code>service</code> 了。</p>
+<p>个人使用中两个方法一起调用了，没有发现过异常情况，也许是测试的手机和次数太少。</p>
+</li>
+<li>
+<p>设备的 gatt 在不用的时候要及时关闭，系统支持的连接数量有限，达到上限后无法建立新的连接。</p>
+</li>
+<li>
+<p>最大连接数</p>
+<p>网络上有的是7个，有的是6个，可以参考 <a href="https://stackoverflow.com/questions/41365009/what-is-the-max-concurrent-ble-connections-android-m-can-have">android M+ 可以拥有的最大并发 Ble 连接数是多少</a></p>
+</li>
+<li>
+<p>蓝牙连接可能不稳定，最好支持失败自动重试机制，尤其是连接和发现服务，因为80%的问题都发生在建立连接和发现服务的时候，而且这一块也是最耗时的。</p>
+</li>
+<li>
+<p>BLE 设备的建立和断开连接的操作，例如 <code>BluetoothDevice.connectGatt()</code><br>
+, <code>BluetoothGatt.connect()</code> , <code>BluetoothGatt.disconnect()</code><br>
+等操作最好都放在主线程中，否则你会遇到很多意想不到的麻烦。<br>
+开发建议：对  <code>BluetoothGatt</code><br>
+的连接和断开请求，都通过发送消息到 Android 的主线程中，让主线程来执行具体的操作。例如创建一个 <code>new Handler(context.getMainLooper())</code>; ，把消息发送到这个  <code>Handler</code> 中。</p>
+</li>
+<li>
+<p>连接不断开的问题别的BLE程序非法保留连接的设备可能会导致连接不能断开</p>
+</li>
+<li>
+<p>连接成功后发现不了服务及特征值</p>
+<p>连接成功后，会进行BluetoothGatt.discoverServices()去发现服务，进而设置特征值等，因为该方法是在主线程中执行的，所以为了连接过程的可靠性，建议不要在该过程中，在主线程中不要处理太多的操作(尤其是频繁绘制操作)。</p>
+</li>
+<li>
+<p>采用BluetoothManager.getConnectedDevices(int profile)来检查当前蓝牙连接的情况</p>
+<p>理由：可以用来检测蓝牙资源有没有释放干净，因为避免繁琐的异步通信中容易出差。不过此法返回的连接数为空时，也不代表蓝牙的连接完全释放干净。</p>
+</li>
+<li>
+<p>连接成功后，过一会就断开了</p>
+<p>这个问题其实并不主要是客户端的问题，所以不要一味的在代码中找问题了，建议与硬件沟通，让其进行优化，如可以调整设备的连接参数（ConnectionInterval（连接间隔）、SlaveLatency（从设备延迟或者从设备时延）、SupervisionTimeout（超时时间或者监控超时）），这三个参数是低功耗蓝牙中十分重要的连接参数，一起决定了BLE的功耗，一般硬件设备会在APP连接成功时主动去更新一下这三个参数，以保证不同手机的差异性得到一致，但是APP端是没办法控制这三个参数的。</p>
+</li>
+<li>
+<p>连接 api 的使用</p>
+<p>发起蓝牙Gatt连接 BluetoothDevice.connectGatt(Context context, boolean autoConnect,<br>
+BluetoothGattCallback callback)，这里有一个参数autoConnect，如果为 true<br>
+的话，系统就会发起一个后台连接，等到系统发现了一个设备，就会自动连上，通常这个过程是非常慢的。为false 的话，就会直接连接，通常会比较快。同样，BluetoothGatt.connect()只能发起一个后台连接，不是直接连接,所以连接时设置autoConnect参数设置为false，如果想实现重连功能的话，自己去手动实。</p>
+</li>
+<li>
+<p>连接出现133/19之类的非0异常</p>
+<p>原因：可能由于首次连接蓝牙后没有释放掉gatt资源导致的蓝牙协议栈异常，从而出现133或257<br>
+19等值不为0：由于协议栈，连接建立失败</p>
+<p>建议：在onConnectionStateChange()回调中判断，若state非0(连接断开)，调用gatt.close()，手动释放掉gatt相关资源</p>
+</li>
+<li>
+<p>连接之后 onServicesDiscovered不被调用</p>
+<p>项目中出现蓝牙连接上之后,始终不进 onServicesDiscovered 回调, mBluetoothGatt.discoverServices() 做如下延时即可。</p>
+</li>
+<li>
+<p>Android 从 4.3(API Level 18) 开始支持低功耗蓝牙，但是只支持作为中心设备 （Central） 模式，这就意味着 Android 设备只能主动扫描和链接其他外围设备 （Peripheral）。从Android 5.0(API Level 21)开始两种模式都支持。BLE 官方文档在  <a href="https://link.jianshu.com?t=https://developer.android.com/guide/topics/connectivity/bluetooth-le.html">这里</a> 。</p>
+</li>
+</ol>
+<h3 id="通信问题">通信问题</h3>
+<ol>
+<li>
+<p>发送数据总是失败</p>
+<p>原因：<br>
+1、首先确定主服务是否正确，再看设置的读、写特征值是否正确</p>
+<p>2、因为BLE发现服务和设置特征、通知等是需要耗时的，所以你并不能连接成功后立马发送数据，可以等到在onDescriptorWrite()回调时，或者手动延迟一段时间再去做发送操作。</p>
+</li>
+<li>
+<p>BLE的特征一次读写最大长度20字节。</p>
+</li>
+<li>
+<p>ble 多次写数据只有一次回调</p>
+<p>原因就在于上一次的write操作还没有回调，蓝牙处于busy状态，没有执行更多的蓝牙操作(需要查看源码中的mDeviceBusy)</p>
+<p>解决:</p>
+<p>方法1： 把多个连续的蓝牙操作（read，write等）放在线程里，并把每个蓝牙操作之间加延迟，sleep（200）类似这样。目的是等待回调完成之后再进行下一个蓝牙操作。</p>
+<p>方法2：同步操作，把所有蓝牙操作同步，等待回调之后再进行下一个操作</p>
+</li>
+<li>
+<p>BluetoothGatt.writeCharacteristic（）回调一直是 false</p>
+<p>除了上面第3条发送数据过快外，还有一种情况是连接异常导致发送不出数据，经测试只有重新连接了才能发送，重发数据还是会失败。</p>
+</li>
+</ol>
+<h3 id="参考">参考</h3>
+<p>网上有很多蓝牙相关的库，但是比较可惜的是很多库都没人维护了，很多年不更新，上面的 issues 也是无人问津，不过对于业务比较简单的蓝牙通信使用起来还是没有问题的，也可以把这些库作为参考。下面是相对来说比较优秀，Star比较多的库推荐。</p>
+<p><a href="https://github.com/Jasonchenlijian/Fastble">FastBle</a></p>
+<p><a href="https://github.com/dingjikerbo/Android-BluetoothKit">Android-BluetoothKit</a></p>
+<p><a href="https://github.com/xiaoyaoyou1212/BLE">Android-BLE</a></p>
+<p><a href="https://github.com/a1anwang/okble">okble</a></p>
+<p><a href="https://github.com/AlexLiuSheng/EasyBluetoothFrame">EasyBluetoothFrame</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Arouter简单封装使用]]></title>
         <id>https://KiWiLss.github.io/arouter-jian-dan-feng-zhuang-shi-yong/</id>
